@@ -112,5 +112,5 @@ if __name__ == "__main__":
         except Exception as error:
             print("{} cannot be loaded. [{}]".format(extension, error))
 
-    token = "NDgzODQ3NTIwNjE1NzkyNjUw.Dmiw7A.oLHuwjb6bdMnmhUTIPTr6xX5Hf8"
+    token = "" # Bot token removed for security purposes
     client.run(token)
