@@ -3,16 +3,21 @@
 import discord
 from discord.ext import commands
 import asyncio
+import os
 
 client = commands.Bot(command_prefix='-')
 client.remove_command("help")
 
 extensions = []
 
-
 async def role_reactions():
-    channel = client.get_channel("480735329565802505")  # gets channel to run in
+    channel = client.get_channel("485554521444057098")  # gets channel to run in
 
+    role_ids = {
+        "🇺🇸": "485556806651740198",
+        "🇦🇺": "somethingelse"
+    }
+    
     # deletes all previous messages in channel:
     old_messages = []
     async for m in client.logs_from(channel, limit=500):
@@ -37,21 +42,10 @@ async def role_reactions():
         rea = rea.reaction
 
         # checks for specific reactions then adds or removes the corresponding role accordingly:
-        if str(rea.emoji) == "🇦🇺":
-            role = discord.utils.get(user.server.roles, id="481854045623943179")
-            if "481854045623943179" in [r.id for r in user.roles]:
-                await client.remove_roles(user, role)
-                await client.send_message(user, content="removed the {} role!".format(role))
-                await client.clear_reactions(message)
-                print("took {} role from {}#{}".format(role.name, user.name, user.discriminator))
-            else:
-                await client.add_roles(user, role)
-                await client.send_message(user, content="gave you the {} role!".format(role))
-                await client.clear_reactions(message)
-                print("gave {} role to {}#{}".format(role.name, user.name, user.discriminator))
-        elif str(rea.emoji) == "🇺🇸":
-            role = discord.utils.get(user.server.roles, id="481854115920478227")
-            if "481854115920478227" in [r.id for r in user.roles]:
+        if str(rea.emoji) in role_ids:
+            role_id = role_ids[str(rea.emoji)]
+            role = discord.utils.get(user.server.roles, id=role_id)
+            if role_id in [r.id for r in user.roles]:
                 await client.remove_roles(user, role)
                 await client.send_message(user, content="removed the {} role!".format(role))
                 await client.clear_reactions(message)
@@ -112,5 +106,5 @@ if __name__ == "__main__":
         except Exception as error:
             print("{} cannot be loaded. [{}]".format(extension, error))
 
-    token = "" # Bot token removed for security purposes
+    token = os.environ['TZMBOT_TOKEN'] # Bot token removed for security purposes
     client.run(token)
