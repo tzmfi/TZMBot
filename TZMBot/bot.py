@@ -26,7 +26,8 @@ async def role_reactions():
     # creates and sends message for reactions creation:
     embed = discord.Embed(title="Chapter categories", description="There are other categories in this server for specific chapter channels such as the example in the top right corner of this message", colour=0x8a0707)
     embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/474667856206888983/479615723078156288/download.png")
-    embed.add_field(name="React to this message with one of the below country flag emojis to get access to the corresponding category", value=":flag_au: - Autstrailia\n:flag_us: - USA\n...")
+    embed.add_field(name="React to this message with one of the below country flag emojis to get access to the corresponding category. Don't forget that you can remove your access to categories by reacting again with the same emoji.", value=":flag_au: - Autstrailia\n:flag_us: - USA\n...")
+    embed.set_footer(text="Created by CHATALOT1", icon_url="https://cdn.discordapp.com/avatars/353574266236567556/ef9d8fa7b54d8f8c58b3f81b6071b087")
     message = await client.send_message(channel, embed=embed)
 
     # loop for managing roles and reactions:
@@ -112,5 +113,5 @@ if __name__ == "__main__":
         except Exception as error:
             print("{} cannot be loaded. [{}]".format(extension, error))
 
-    token = "" # Bot token removed for security purposes
+    token = ""
     client.run(token)
