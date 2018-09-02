@@ -46,7 +46,7 @@ async def role_reactions():
             role_id = role_ids[str(rea.emoji)]
             role = discord.utils.get(user.server.roles, id=role_id)
             if role is None:
-                print("Unknown emoji added by {}: {}".format(user.discriminator, rea.emoji))
+                print("Invalid reaction added by {}#{}: {}".format(user.name, user.discriminator, rea.emoji))
             elif role_id in [r.id for r in user.roles]:
                 await client.remove_roles(user, role)
                 await client.send_message(user, content="removed the {} role!".format(role))
