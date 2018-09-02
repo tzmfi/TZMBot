@@ -21,7 +21,8 @@ async def role_reactions():
     # deletes all previous messages in channel:
     old_messages = []
     async for m in client.logs_from(channel, limit=500):
-        old_messages.append(m)
+        if m.author == client.user:
+            old_messages.append(m)
     if len(old_messages) >= 2:
         await client.delete_messages(old_messages)
     elif len(old_messages) == 1:
