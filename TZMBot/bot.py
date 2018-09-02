@@ -5,18 +5,16 @@ from discord.ext import commands
 import asyncio
 import os
 
+from settings import role_ids 
+from settings import channel_id
+
 client = commands.Bot(command_prefix='-')
 client.remove_command("help")
 
 extensions = []
 
 async def role_reactions():
-    channel = client.get_channel("485554521444057098")  # gets channel to run in
-
-    role_ids = {
-        "🇺🇸": "485556806651740198",
-        "🇦🇺": "somethingelse"
-    }
+    channel = client.get_channel(channel_id)  # gets channel to run in
     
     # deletes all previous messages in channel:
     old_messages = []
@@ -47,7 +45,9 @@ async def role_reactions():
         if str(rea.emoji) in role_ids:
             role_id = role_ids[str(rea.emoji)]
             role = discord.utils.get(user.server.roles, id=role_id)
-            if role_id in [r.id for r in user.roles]:
+            if role is None:
+                print("Unknown emoji added by {}: {}".format(user.discriminator, rea.emoji))
+            elif role_id in [r.id for r in user.roles]:
                 await client.remove_roles(user, role)
                 await client.send_message(user, content="removed the {} role!".format(role))
                 await client.clear_reactions(message)
