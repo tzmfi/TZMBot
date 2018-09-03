@@ -71,8 +71,8 @@ async def on_ready():
     await role_reactions()
 
 
-@client.command(pass_context=True)
-async def info(ctx):
+@client.command()
+async def info():
     chat = await client.get_user_info("353574266236567556")
     await client.say(
         "I am a bot developed by {}. So far my only feature of any worth is the reaction based role assigning system that allows you to view other categories."
