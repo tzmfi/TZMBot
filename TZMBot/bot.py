@@ -11,7 +11,7 @@ from settings import channel_id
 client = commands.Bot(command_prefix='-')
 client.remove_command("help")
 
-extensions = []
+extensions = ["bios"]
 
 async def role_reactions():
     channel = client.get_channel(channel_id)  # gets channel to run in
