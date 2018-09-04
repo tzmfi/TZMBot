@@ -71,12 +71,25 @@ async def on_ready():
     await role_reactions()
 
 
-@client.command()
-async def info():
+@client.command(pass_context=True)
+async def info(ctx):
+    user = ctx.message.author
     chat = await client.get_user_info("353574266236567556")
-    await client.say(
-        "I am a bot developed by {}. So far my only feature of any worth is the reaction based role assigning system that allows you to view other categories."
-            .format(chat.mention))
+    jeukku = await client.get_user_info("333945749803106306")
+
+    embed = discord.Embed(title="TZMBot info:",
+                          description="All sorts of info about me!",
+                          colour=0x8a0707)
+    embed.add_field(name="Developed by:",
+                    value="I am developed mainly by {}, with help from {}.".format(chat.mention, jeukku.mention))
+    embed.add_field(name="Features:",
+                    value="Currently my only features are the role reactions system and the bio system (do -help for more info)")
+    embed.add_field(name="Technical stuff:",
+                    value="**Programming language:** Python 3.6\n**Library:** discord.py 0.16.2\n**Fuel:** dreams (of an RBE)")
+    embed.set_thumbnail(url=client.user.avatar_url)
+    embed.set_footer(icon_url=user.avatar_url,
+                     text="Requested by {}#{} ({})".format(user.name, user.discriminator, user.id))
+    await client.send_message(ctx.message.channel, embed=embed)
 
 
 @client.command(pass_context=True)
