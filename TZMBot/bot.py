@@ -93,6 +93,31 @@ async def info(ctx):
 
 
 @client.command(pass_context=True)
+async def help(ctx):
+    user = ctx.message.author
+    role_reactions_channel = client.get_channel("480735329565802505")
+
+    embed = discord.Embed(title="TZMBot help:",
+                          description="How to use me!",
+                          colour=0x8a0707)
+    embed.add_field(name="The role reactions system:",
+                    value="The role reactions system is the name of the setup you see in {}, it explains itself pretty well over there."
+                    .format(role_reactions_channel.mention))
+    embed.add_field(name="The bio system:",
+                    value="""The bio system is designed as a way to easily explain to others what you can do and have done for TZM, it consists of:
+                    
+                    ``-setbio [new bio]`` - This command will update your bio to whatever you put in place of ``[new bio]``.
+                    ``-bio {user}`` = This command will display the bio of the user you @mention in place of ``{user}``. Alternatively, if you put nothing after the command, it will display your own bio by default.""")
+    embed.add_field(name="Misc.",
+                    value="""``-info`` - Displays info about me.
+                    ``-help`` - Displays this message.""")
+    embed.set_thumbnail(url=client.user.avatar_url)
+    embed.set_footer(icon_url=user.avatar_url,
+                     text="Requested by {}#{} ({})".format(user.name, user.discriminator, user.id))
+    await client.send_message(ctx.message.channel, embed=embed)
+
+    
+@client.command(pass_context=True)
 async def load(ctx, extension):
     if ctx.message.author.id == "353574266236567556":
         try:
