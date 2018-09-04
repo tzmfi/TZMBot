@@ -3,6 +3,7 @@ from discord.ext import commands
 import asyncio
 import json
 
+from settings import userinfo_location
 
 class bios:
     def __init__(self, client):
@@ -36,12 +37,12 @@ class bios:
                     await self.client.clear_reactions(confirmation_message)
 
                     # reads the file for editing:
-                    with open("userinfo.json", "r") as f:
+                    with open(userinfo_location, "r") as f:
                         file = json.load(f)
 
                     # updates the file:
                     found = False  # found defaults to false
-                    with open("userinfo.json", "w") as f:
+                    with open(userinfo_location, "w") as f:
 
                         # checks if the user already has a bio, and updates it if so:
                         for item in file["users"]:
@@ -108,8 +109,8 @@ class bios:
                     await self.client.send_message(ctx.message.channel, embed=embed)
                     break
 
-            # reads the file for editing:
-            with open("userinfo.json", "r") as f:
+            # reads the file:
+            with open(userinfo_location, "r") as f:
                 file = json.load(f)
 
             # searches for whether the targeted user has a bio, and sets it to the bio variable if so
