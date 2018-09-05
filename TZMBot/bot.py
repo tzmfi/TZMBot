@@ -95,7 +95,7 @@ async def info(ctx):
 @client.command(pass_context=True)
 async def help(ctx):
     user = ctx.message.author
-    role_reactions_channel = client.get_channel("480735329565802505")
+    role_reactions_channel = client.get_channel(channel_id)
 
     embed = discord.Embed(title="TZMBot help:",
                           description="How to use me!",
