@@ -31,7 +31,13 @@ async def role_reactions():
     role_reactions_string = ""
     for item in role_ids:
         role = discord.utils.get(channel.server.roles, id=role_ids[item])
-        role_reactions_string = role_reactions_string + "\n" + item + " - " + role.mention
+        if role is not None:
+            role_reactions_string = role_reactions_string + "\n" + item + " - " + role.mention
+        else:
+            print("Invalid role_id {}:{}".format(item, role_ids[item]))
+            
+    if len(role_reactions_string) == 0:
+            role_reactions_string = "empty"
 
     # creates and sends message for reactions creation:
     embed = discord.Embed(title="Chapter categories",
