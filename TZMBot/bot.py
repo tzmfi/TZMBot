@@ -27,10 +27,19 @@ async def role_reactions():
         old_message = old_messages[0]
         await client.delete_message(old_message)
 
+    # converts role_ids into a string for the reactions message:
+    role_reactions_string = ""
+    for item in role_ids:
+        role = discord.utils.get(channel.server.roles, id=role_ids[item])
+        role_reactions_string = role_reactions_string + "\n" + item + " - " + role.mention
+
     # creates and sends message for reactions creation:
-    embed = discord.Embed(title="Chapter categories", description="There are other categories in this server for specific chapter channels such as the example in the top right corner of this message", colour=0x8a0707)
+    embed = discord.Embed(title="Chapter categories",
+                          description="There are other categories in this server for specific chapter channels such as the example in the top right corner of this message",
+                          colour=0x8a0707)
     embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/474667856206888983/479615723078156288/download.png")
-    embed.add_field(name="React to this message with one of the below country flag emojis to get access to the corresponding category. Don't forget that you can remove your access to categories by reacting again with the same emoji.", value=":flag_au: - Autstrailia\n:flag_us: - USA\n...")
+    embed.add_field(name="React to this message with one of the below country flag emojis to get access to the corresponding category. Don't forget that you can remove your access to categories by reacting again with the same emoji.",
+                    value=role_reactions_string)
     embed.set_footer(text="Created by CHATALOT1", icon_url="https://cdn.discordapp.com/avatars/353574266236567556/ef9d8fa7b54d8f8c58b3f81b6071b087")
     message = await client.send_message(channel, embed=embed)
 
