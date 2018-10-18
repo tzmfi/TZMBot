@@ -34,7 +34,10 @@ class bios:
 
                 # if they confirm the bio change:
                 if str(rea.emoji) == "🇾":
-                    await self.client.clear_reactions(confirmation_message)
+                    try:
+                        await self.client.clear_reactions(confirmation_message)
+                    except PermissionError:
+                        pass
 
                     # reads the file for editing:
                     with open(userinfo_location, "r") as f:
@@ -71,7 +74,10 @@ class bios:
 
                 # if they cancel the bio change:
                 elif str(rea.emoji) == "🇳":
-                    await self.client.clear_reactions(confirmation_message)
+                    try:
+                        await self.client.clear_reactions(confirmation_message)
+                    except PermissionError:
+                        pass
 
                     # edits the confirmation message to clarify that the bio change/creation has been cancelled:
                     embed = discord.Embed(title="Bio update cancelled",
