@@ -26,4 +26,4 @@ role_ids = {
 channel_id = "487011206125846529"
 
 
-userinfo_location = "userinfo.json"
+userinfo_location = "/opt/settings/userinfo.json"
